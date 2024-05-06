@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Candy
   - Enemy
+  - Power
   layers:
   - Default
   - TransparentFX

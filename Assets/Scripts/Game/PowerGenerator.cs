@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.XR;
 
-
-public class EnemysGenerator : MonoBehaviour
+public class PowerGenerator : MonoBehaviour
 {
-    public static EnemysGenerator instance;
-    public List<GameObject> Enemies = new List<GameObject>();
-    private float timeToCreate = 2.5f;
-    private float actualTime = 0f;
+    public static PowerGenerator instance;
+    public List<GameObject> Power = new List<GameObject>();
+    [SerializeField] private float time_to_create = 0.5f;
+    private float actual_time = 0f;
     private float limitSuperior;
     private float limitInferior;
-    public List<GameObject> EnemyActual = new List<GameObject>();
+    public List<GameObject> actualPower = new List<GameObject>();
+
     void Awake()
     {
         if (instance != null && instance != this)
@@ -22,22 +21,23 @@ public class EnemysGenerator : MonoBehaviour
         }
         instance = this;
     }
-
+    // Start is called before the first frame update
     void Start()
     {
         SetMinMax();
     }
 
+    // Update is called once per frame
     void Update()
     {
-        actualTime += Time.deltaTime;
-        if (timeToCreate <= actualTime)
+        actual_time += Time.deltaTime;
+        if (time_to_create <= actual_time)
         {
-            GameObject enemy = Instantiate(Enemies[Random.Range(0, Enemies.Count)],
+            GameObject power = Instantiate(Power[Random.Range(0, Power.Count)],
             new Vector3(transform.position.x, Random.Range(limitInferior, limitSuperior), 0f), Quaternion.identity);
-            enemy.GetComponent<Rigidbody2D>().velocity = new Vector2(-5f, 0);
-            actualTime = 0f;
-            EnemyActual.Add(enemy);
+            power.GetComponent<Rigidbody2D>().velocity = new Vector2(-1f, 0);
+            actual_time = 0f;
+            actualPower.Add(power);
         }
     }
 
@@ -47,27 +47,28 @@ public class EnemysGenerator : MonoBehaviour
         limitInferior = -(bounds.y * 0.9f);
         limitSuperior = (bounds.y * 0.9f);
     }
-    public void ManageEnemy(Enemys enemysController, PlayerMovement player_script = null)
+
+    public void ManagePower(Power power_script, PlayerMovement player_script = null)
     {
         if (player_script == null)
         {
-            Destroy(enemysController.gameObject);
+            Destroy(power_script.gameObject);
             return;
         }
-        if (enemysController.frame == 3)
+        if (power_script.frame == 3)
         {
             SceneManager.LoadScene("GameOver");
             return;
         }
         int lives = player_script.player_lives;
-        int live_changer = enemysController.lifeChanges;
+        int live_changer = power_script.lifeChanges;
         lives += live_changer;
-  
+        print(lives);
         if (lives <= 0)
         {
             SceneManager.LoadScene("GameOver");
         }
         player_script.player_lives = lives;
-        Destroy(enemysController.gameObject);
+        Destroy(power_script.gameObject);
     }
 }
