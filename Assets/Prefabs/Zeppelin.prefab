@@ -195,3 +195,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeChanges: -1
   frame: 2
+  EnemySound: {fileID: 8300000, guid: 0eea69cdfb4f2a3468921c2bb09e660d, type: 3}
+  PlayerSound: {fileID: 8300000, guid: 35a355f18d5135d4591885c718bcd33c, type: 3}

@@ -12,16 +12,16 @@ public class Puntaje : MonoBehaviour
     {
         if (instance == null)
         {
-            instance = this;    
+            instance = this;
         }
         else
         {
-            Destroy(gameObject );
+            Destroy(gameObject);
         }
     }
     private void UpdateScoreText()
     {
-         textMeshPro.text = "Puntuacion: " + score.ToString();
+        textMeshPro.text = "Puntuacion: " + score.ToString();
     }
     public void AumenScore(int amount)
     {

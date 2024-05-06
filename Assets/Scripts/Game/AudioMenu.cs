@@ -6,7 +6,6 @@ public class AudioMenu : MonoBehaviour
 {
     [SerializeField] private GameObject volumenMenu;
 
-
     private static AudioMenu instance;
 
     private void Awake()
@@ -14,18 +13,15 @@ public class AudioMenu : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
     }
+
     public void ToggleVolumenMenu()
     {
-
         volumenMenu.SetActive(!volumenMenu.activeSelf);
-
-
     }
 }

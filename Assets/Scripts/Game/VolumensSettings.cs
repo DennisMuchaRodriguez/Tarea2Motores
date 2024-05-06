@@ -9,40 +9,13 @@ public class VolumensSettings : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider SFXSlider;
     [SerializeField] private Slider VolumenSlider;
- 
+    [SerializeField] private Button muteButton;
 
-    private static VolumensSettings instance;
-    public static VolumensSettings Instance
-    {
-        get { return instance; }
-    }
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-
-            Destroy(gameObject);
-        }
-    }
+    private bool isMuted = false;
 
     private void Start()
     {
-
-        if (PlayerPrefs.HasKey("musicVolume"))
-        {
-            LoadVolumen();
-        }
-        else
-        {
-            SetVolumeGeneral();
-        }
+        LoadVolumen();
     }
 
     public void SetVolumeGeneral()
@@ -71,9 +44,17 @@ public class VolumensSettings : MonoBehaviour
         PlayerPrefs.SetFloat("sfxVolume", volume);
     }
 
+    public void ToggleMute()
+    {
+        isMuted = !isMuted;
+        float volume = isMuted ? -80f : PlayerPrefs.GetFloat("VolumeGeneral", 0.5f);
+        myMixer.SetFloat("Music", isMuted ? -80f : Mathf.Log10(volume) * 20);
+        myMixer.SetFloat("SFX", isMuted ? -80f : Mathf.Log10(volume) * 20);
+    }
+
     private void LoadVolumen()
     {
-        float volume = PlayerPrefs.GetFloat("VolumeGeneral");
+        float volume = PlayerPrefs.GetFloat("VolumeGeneral", 0.5f);
         VolumenSlider.value = volume;
 
         SetVolumeGeneral();

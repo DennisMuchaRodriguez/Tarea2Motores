@@ -103,6 +103,7 @@ MonoBehaviour:
   frame: 1
   lifeChanges: 0
   scoreValue: 3
+  candySound: {fileID: 8300000, guid: 101468d1ae5243942add3ab8f19e943b, type: 3}
 --- !u!61 &2617190645289942568
 BoxCollider2D:
   m_ObjectHideFlags: 0

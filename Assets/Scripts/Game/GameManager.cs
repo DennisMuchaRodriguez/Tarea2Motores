@@ -6,18 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GuardarPuntaje highScoreData;
+    public ScoreData highScoreData;
     public TextMeshProUGUI scoreText;
     public void GameOver(int finalScore)
     {
-        
-        if (finalScore > highScoreData.highestScore)
+
+        if (finalScore > highScoreData.score)
         {
-            highScoreData.highestScore = finalScore;
-       
+            highScoreData.score = finalScore;
+
         }
 
-       
+
         SceneManager.LoadScene("GameOver");
         scoreText.text = "Puntaje final: " + finalScore.ToString();
     }

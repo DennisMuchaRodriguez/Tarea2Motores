@@ -174,3 +174,4 @@ MonoBehaviour:
   frame: 2
   lifeChanges: 1
   scoreValue: 3
+  powerSound: {fileID: 8300000, guid: 881df5ce89c24564b847f8a8a9411e69, type: 3}
